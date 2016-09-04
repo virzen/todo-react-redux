@@ -4,6 +4,7 @@ import FilterButton from '../containers/FilterButton.js';
 const Footer = () => {
   return (
     <p>
+      Show: 
       <FilterButton filter="SHOW_ALL"> All </FilterButton>
       {' '}
       <FilterButton filter="SHOW_ACTIVE"> Active </FilterButton>
