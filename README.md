@@ -9,4 +9,5 @@ npm install
 ```
 npm start
 ```
-Server will be available under the http://localhost:3333/ address.
+
+Server will be available under the `http://localhost:3333/` address.
