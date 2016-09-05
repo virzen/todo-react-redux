@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toggleTodo, removeTodo } from '../actions';
-import store from '../store';
+// import store from '../store';
 import TodoList from '../components/TodoList.js';
 
 const getVisibleTodos = (todos, visibilityFilter) => {
@@ -19,6 +19,7 @@ const getVisibleTodos = (todos, visibilityFilter) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log('test');
   return {
     todos: getVisibleTodos(state.todos, state.visibilityFilter),
   };
@@ -35,43 +36,43 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-// const VisibleTodoList = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(TodoList);
+const VisibleTodoList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList);
 
-class VisibleTodoList extends Component {
-  componentDidMount() {
-    // const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    const props = this.props;
-    // const { store } = this.context;
-    const state = store.getState();
-
-    return (
-      <TodoList
-        todos={getVisibleTodos(state.todos, state.visibilityFilter)}
-        onTodoClick={id => {
-          store.dispatch(toggleTodo(id));
-        }}
-        onRemoveClick={id => {
-          store.dispatch(removeTodo(id));
-        }}
-      />
-    );
-  }
-}
-VisibleTodoList.contextTypes = {
-  store: React.PropTypes.object,
-};
+// class VisibleTodoList extends Component {
+//   componentDidMount() {
+//     // const { store } = this.context;
+//     this.unsubscribe = store.subscribe(() => {
+//       this.forceUpdate();
+//     });
+//   }
+//
+//   componentWillUnmount() {
+//     this.unsubscribe();
+//   }
+//
+//   render() {
+//     const props = this.props;
+//     // const { store } = this.context;
+//     const state = store.getState();
+//
+//     return (
+//       <TodoList
+//         todos={getVisibleTodos(state.todos, state.visibilityFilter)}
+//         onTodoClick={id => {
+//           store.dispatch(toggleTodo(id));
+//         }}
+//         onRemoveClick={id => {
+//           store.dispatch(removeTodo(id));
+//         }}
+//       />
+//     );
+//   }
+// }
+// VisibleTodoList.contextTypes = {
+//   store: React.PropTypes.object,
+// };
 
 export default VisibleTodoList;
