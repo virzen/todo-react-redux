@@ -1,21 +1,34 @@
 import React from 'react';
-import store from '../store';
+import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 
-const AddTodo = () => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddClick: (input) => {
+      dispatch(addTodo(input.value));
+      input.value = '';
+    },
+  };
+};
+
+let AddTodo = ({
+  onAddClick,
+}) => {
   let input;
 
   return (
     <div>
       <input ref={node => { input = node }} />
-      <button onClick={() => {
-          store.dispatch(addTodo(input.value));
-          input.value = '';
-      }}>
+      <button onClick={() => onAddClick(input)}>
         +
       </button>
     </div>
   );
 };
+
+AddTodo = connect(
+  undefined,
+  mapDispatchToProps
+)(AddTodo);
 
 export default AddTodo;

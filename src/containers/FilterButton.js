@@ -1,35 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Button from '../components/Button.js';
-import store from '../store';
 import { setVisibilityFilter } from '../actions';
+import Button from '../components/Button';
 
-class FilterButton extends Component {
-  componentDidMount() {
-    this.usubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    active: ownProps.filter === state.visibilityFilter,
+    children: ownProps.children,
+  };
+};
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onClick: () => {
+      dispatch(setVisibilityFilter(ownProps.filter));
+    },
+  };
+};
 
-  render() {
-    const props = this.props;
-    const state = store.getState();
-
-    return (
-      <Button
-        active={props.filter === state.visibilityFilter}
-        onClick={() => {
-          store.dispatch(setVisibilityFilter(props.filter));
-        }}
-      >
-        { props.children }
-      </Button>
-    );
-  }
-}
+const FilterButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button);
 
 export default FilterButton;
